@@ -8,15 +8,24 @@ import { toast } from "sonner";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
+type Field = {
+  name: string;
+  type: "STRING" | "NUMBER" | "FLOAT" | "NESTED";
+  value?: string;
+  children?: Field[];
+};
+
+
 export default function Home() {
   const methods = useForm({ defaultValues: { fields: [] } });
   const { control } = methods;
   const fields = useWatch({ control, name: "fields" });
-  const [json, setJson] = useState({});
+  const [json, setJson] = useState<Record<string, unknown>>({});
+
 
   useEffect(() => {
-    const buildSchema = (fields: any[]): any => {
-      const schema: any = {};
+    const buildSchema = (fields: Field[]): Record<string, unknown> => {
+      const schema: Record<string, unknown> = {};
       fields?.forEach((field) => {
         if (!field?.name) return;
 
