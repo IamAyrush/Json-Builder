@@ -14,7 +14,6 @@ export default function FieldBuilder({ name, nested = false }: Props) {
     name,
   });
 
-  const watchFields = watch(name);
 
   return (
     <div className={`border p-4 rounded ${nested ? "ml-6" : ""}`}>

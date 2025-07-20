@@ -32,10 +32,10 @@ export default function Home() {
         if (field.type === "NESTED") {
           schema[field.name] = buildSchema(field.children || []);
         } else {
-          let val: any = field.value;
-          if (field.type === "NUMBER") val = parseInt(val || "0");
-          else if (field.type === "FLOAT") val = parseFloat(val || "0.0");
-          else val = val ?? "";
+          let val: unknown = field.value;
+          if (field.type === "NUMBER") val = parseInt(field.value || "0");
+          else if (field.type === "FLOAT") val = parseFloat(field.value || "0.0");
+          else val = field.value ?? "";
 
           schema[field.name] = val;
         }
